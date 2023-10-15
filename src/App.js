@@ -6,27 +6,35 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
-import { Alert, Button, Card, CardGroup } from 'react-bootstrap';
+import { Alert, Button, Card, CardGroup, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { useState } from 'react';
 
 function App() {
   const [show, setShow] = useState(false);
   //data for card
-const data=[
-  {
-    image:'https://picsum.photos/id/238/320/200',
-    title:'New York',
-    description:' New York City comprises 5 boroughs sitting where the Hudson River meets the Atlantic Ocean. At its core is Manhattan, a densely populated borough that’s among the world’s major commercial, financial and cultural centers.'
-  },  {
-    image:'https://picsum.photos/id/236/320/200',
-    title:'Norway',
-    description:'Preserved 9th-century Viking ships are displayed at Oslo’s Viking Ship Museum. Bergen, with colorful wooden houses, is the starting point for cruises to the dramatic Sognefjord. Norway is also known for notably at Lillehammer’s Olympic resort.'
-  },  {
-    image:'https://picsum.photos/id/228/320/200',
-    title:'Taxes',
-    description:'Its legendary cowboy culture, its large cities, its diverse landscapes, its delicious Tex-Mex cuisine, and its strong southern hospitality. It is also famous for its cattle and oil industry, its rodeos, its music, and its unique Texan culture'
-  },
-]
+  const data = [
+    {
+      image: 'https://picsum.photos/id/238/320/200',
+      title: 'New York',
+      description: ' New York City comprises 5 boroughs sitting where the Hudson River meets the Atlantic Ocean. At its core is Manhattan, a densely populated borough that’s among the world’s major commercial, financial and cultural centers.'
+    }, {
+      image: 'https://picsum.photos/id/236/320/200',
+      title: 'Norway',
+      description: 'Preserved 9th-century Viking ships are displayed at Oslo’s Viking Ship Museum. Bergen, with colorful wooden houses, is the starting point for cruises to the dramatic Sognefjord. Norway is also known for notably at Lillehammer’s Olympic resort.'
+    }, {
+      image: 'https://picsum.photos/id/228/320/200',
+      title: 'Taxes',
+      description: 'Its legendary cowboy culture, its large cities, its diverse landscapes, its delicious Tex-Mex cuisine, and its strong southern hospitality. It is also famous for its cattle and oil industry, its rodeos, its music, and its unique Texan culture'
+    },
+  ];
+  
+    const renderTooltip = (props) => (
+      <Tooltip id="button-tooltip" {...props}>
+       Book Now Get Gift
+      </Tooltip>
+    );
+ 
+
   return (
     <div className="App">
       <header>
@@ -120,19 +128,25 @@ const data=[
               </Card.Body>
 
             </Card> */}
-            {data.map((e)=>{
-              return(
+            {data.map((e) => {
+              return (
                 <Card className=' my-2 mx-2 rounded-3'  >
-                <Card.Img variant="top" src={e.image} />
-                <Card.Body>
-                  <Card.Title>{e.title}</Card.Title>
-                  <Card.Text>
-                   {e.description}
-                  </Card.Text>
-                  <Button className=' bottom-0' variant="primary">Book Now</Button>
-                </Card.Body>
-  
-              </Card>
+                  <Card.Img variant="top" src={e.image} />
+                  <Card.Body>
+                    <Card.Title>{e.title}</Card.Title>
+                    <Card.Text>
+                      {e.description}
+                    </Card.Text>
+                    <OverlayTrigger
+                      placement="right"
+                      delay={{ show: 250, hide: 400 }}
+                      overlay={renderTooltip}
+                    >
+                      <Button className=' bottom-0' variant="primary">Book Now</Button>
+                    </OverlayTrigger>
+                  </Card.Body>
+
+                </Card>
               )
             })}
           </CardGroup>
